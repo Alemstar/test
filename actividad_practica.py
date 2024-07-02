@@ -1,15 +1,18 @@
 import csv
-
-def registrar_trabajador (lista, nombre_apellido = '', cargo = '', sueldo_bruto = 0):
-    lista.append ([nombre_apellido, cargo, sueldo_bruto])
+lista = []
+def registrar_trabajador (nombre_apellido,cargo,sueldo_bruto):
+    desc_salud = 0.07*sueldo_bruto
+    desc_afp = 0.12*sueldo_bruto
+    sueldo_liquido = sueldo_bruto - desc_salud - desc_afp
+    lista.append([nombre_apellido, cargo, sueldo_bruto, desc_salud, desc_afp, sueldo_liquido])
     return lista
 
-def lista_trabajadores (nombre_apellido = '', cargo = '', sueldo_bruto = 0):
+def lista_trabajadores (nombre_apellido = '', cargo = '', sueldo_bruto = 0, desc_salud= 0, desc_afp = 0, sueldo_liquido = 0):
     with open ('registro.csv', 'r', newline='') as archivo_csv:
         reader = csv.reader(archivo_csv)
         for fila in reader:
-            if (fila[0] == nombre_apellido and fila [1] == cargo and fila [2] == sueldo_bruto):
-                return 'Datos del trabajador: ' + fila [0], fila [1], fila [2]
+            if (fila[0] == nombre_apellido and fila [1] == cargo and fila [2] == sueldo_bruto): #and fila [3] == desc_salud and fila [4] == desc_afp and fila [5] == sueldo_liquido):
+                return 'Datos del trabajador: ' + fila [0], fila [1], fila [2], fila [3]#, fila [4], fila [5]
         return 'Sin datos'
     
 datos = []
@@ -20,9 +23,12 @@ while True:
         nombre_apellido = input("Ingrese nombre y apellido: ")
         cargo = input ("Ingrese su cargo: ")
         sueldo_bruto = int(input("Ingrese su sueldo bruto: "))
-        datos = registrar_trabajador (datos, nombre_apellido=nombre_apellido, cargo=cargo, sueldo_bruto=sueldo_bruto)
+        #datos = registrar_trabajador (datos, nombre_apellido=nombre_apellido, cargo=cargo, sueldo_bruto=sueldo_bruto, desc_salud=desc_salud, desc_afp = desc_afp sueldo_liquido = sueldo_liquido)
+        #datos = registrar_trabajador (nombre_apellido, cargo, sueldo_bruto)
+        #registrar_trabajador (nombre_apellido, cargo, sueldo_bruto)
         with open ('registro.csv', 'w', newline= '') as archivo_csv:
                 writer = csv.writer(archivo_csv)
-                writer.writerow(datos)
+                writer.writerows(datos)
+        print (datos)
     elif option == 2:
-        lista_trabajadores()
+         print (lista)
