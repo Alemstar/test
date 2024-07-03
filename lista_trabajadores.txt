@@ -1,0 +1,2 @@
+nombre / cargo / sueldo bruto / descuento salud / descuento afp /sueldo líquido  
+['ale', 'ceo', 40000, 2800, 4800, 32400] 
